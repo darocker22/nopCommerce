@@ -3797,7 +3797,7 @@ namespace Nop.Admin.Controllers
         #region Reports
 
         [NonAction]
-        protected DataSourceResult GetBestsellersBriefReportModel(int pageIndex,
+        protected virtual DataSourceResult GetBestsellersBriefReportModel(int pageIndex,
             int pageSize, int orderBy)
         {
             //a vendor should have access only to his products
@@ -4336,7 +4336,7 @@ namespace Nop.Admin.Controllers
         #region Activity log
 
         [NonAction]
-        protected void LogEditOrder(int orderId)
+        protected virtual void LogEditOrder(int orderId)
         {
             _customerActivityService.InsertActivity("EditOrder", _localizationService.GetResource("ActivityLog.EditOrder"), orderId);
         }

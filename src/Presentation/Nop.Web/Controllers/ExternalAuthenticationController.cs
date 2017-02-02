@@ -23,7 +23,7 @@ namespace Nop.Web.Controllers
 
         #region Methods
 
-        public RedirectResult RemoveParameterAssociation(string returnUrl)
+        public virtual RedirectResult RemoveParameterAssociation(string returnUrl)
         {
             //prevent open redirection attack
             if (!Url.IsLocalUrl(returnUrl))

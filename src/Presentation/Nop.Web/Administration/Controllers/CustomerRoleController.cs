@@ -72,7 +72,7 @@ namespace Nop.Admin.Controllers
         #region Utilities
 
         [NonAction]
-        protected CustomerRoleModel PrepareCustomerRoleModel(CustomerRole customerRole)
+        protected virtual CustomerRoleModel PrepareCustomerRoleModel(CustomerRole customerRole)
         {
             var model = customerRole.ToModel();
             var product = _productService.GetProductById(customerRole.PurchasedWithProductId);

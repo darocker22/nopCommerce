@@ -960,7 +960,7 @@ namespace Nop.Web.Controllers
         #region Methods (one page checkout)
 
         [NonAction]
-        protected JsonResult OpcLoadStepAfterShippingAddress(List<ShoppingCartItem> cart)
+        protected virtual JsonResult OpcLoadStepAfterShippingAddress(List<ShoppingCartItem> cart)
         {
             var shippingMethodModel = _checkoutModelFactory.PrepareShippingMethodModel(cart, _workContext.CurrentCustomer.ShippingAddress);
             if (_shippingSettings.BypassShippingMethodSelectionIfOnlyOne &&
@@ -989,7 +989,7 @@ namespace Nop.Web.Controllers
         }
 
         [NonAction]
-        protected JsonResult OpcLoadStepAfterShippingMethod(List<ShoppingCartItem> cart)
+        protected virtual JsonResult OpcLoadStepAfterShippingMethod(List<ShoppingCartItem> cart)
         {
             //Check whether payment workflow is required
             //we ignore reward points during cart total calculation
@@ -1058,7 +1058,7 @@ namespace Nop.Web.Controllers
         }
 
         [NonAction]
-        protected JsonResult OpcLoadStepAfterPaymentMethod(IPaymentMethod paymentMethod, List<ShoppingCartItem> cart)
+        protected virtual JsonResult OpcLoadStepAfterPaymentMethod(IPaymentMethod paymentMethod, List<ShoppingCartItem> cart)
         {
             if (paymentMethod.SkipPaymentInfo ||
                 (paymentMethod.PaymentMethodType == PaymentMethodType.Redirection && _paymentSettings.SkipPaymentInfoStepForRedirectionPaymentMethods))

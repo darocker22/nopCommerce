@@ -52,7 +52,7 @@ namespace Nop.Admin.Controllers
         /// </summary>
         /// <param name="tabName">Tab name to save; empty to automatically detect it</param>
         /// <param name="persistForTheNextRequest">A value indicating whether a message should be persisted for the next request</param>
-        protected void SaveSelectedTabName(string tabName = "", bool persistForTheNextRequest = true)
+        protected virtual void SaveSelectedTabName(string tabName = "", bool persistForTheNextRequest = true)
         {
             //keep this method synchronized with
             //"GetSelectedTabName" method of \Nop.Web.Framework\HtmlExtensions.cs

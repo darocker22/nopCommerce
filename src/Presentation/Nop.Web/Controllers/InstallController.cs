@@ -43,7 +43,7 @@ namespace Nop.Web.Controllers
         /// <summary>
         /// A value indicating whether we use MARS (Multiple Active Result Sets)
         /// </summary>
-        protected bool UseMars
+        protected virtual bool UseMars
         {
             get { return false; }
         }
@@ -54,7 +54,7 @@ namespace Nop.Web.Controllers
         /// <param name="connectionString">Connection string</param>
         /// <returns>Returns true if the database exists.</returns>
         [NonAction]
-        protected bool SqlServerDatabaseExists(string connectionString)
+        protected virtual bool SqlServerDatabaseExists(string connectionString)
         {
             try
             {
@@ -83,7 +83,7 @@ namespace Nop.Web.Controllers
         /// </param>
         /// <returns>Error</returns>
         [NonAction]
-        protected string CreateDatabase(string connectionString, string collation, int triesToConnect = 10)
+        protected virtual string CreateDatabase(string connectionString, string collation, int triesToConnect = 10)
         {
             try
             {
@@ -143,7 +143,7 @@ namespace Nop.Web.Controllers
         /// <param name="timeout">The connection timeout</param>
         /// <returns>Connection string</returns>
         [NonAction]
-        protected string CreateConnectionString(bool trustedConnection,
+        protected virtual string CreateConnectionString(bool trustedConnection,
             string serverName, string databaseName,
             string userName, string password, int timeout = 0)
         {

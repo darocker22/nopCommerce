@@ -323,7 +323,7 @@ namespace Nop.Admin.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetAvailableFlagFileNames()
+        public virtual JsonResult GetAvailableFlagFileNames()
         {
             if (!_permissionService.Authorize(StandardPermissionProvider.ManageLanguages))
                 return Json("Access denied");
