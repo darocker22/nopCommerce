@@ -1295,7 +1295,7 @@ namespace Nop.Admin.Controllers
                     .Split(new [] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                     .Select(x => Convert.ToInt32(x))
                     .ToArray();
-                orders.AddRange(_orderService.GetOrdersByIds(ids));
+                orders.AddRange(_orderService.GetOrdersByIds(ids).Where(HasAccessToOrder));
             }
 
             var xml = _exportManager.ExportOrdersToXml(orders);
@@ -1371,7 +1371,7 @@ namespace Nop.Admin.Controllers
                     .Split(new [] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                     .Select(x => Convert.ToInt32(x))
                     .ToArray();
-                orders.AddRange(_orderService.GetOrdersByIds(ids));
+                orders.AddRange(_orderService.GetOrdersByIds(ids).Where(HasAccessToOrder));
             }
 
             try
