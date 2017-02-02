@@ -33,7 +33,6 @@ namespace Nop.Admin.Models.Affiliates
         
         public partial class AffiliatedOrderModel : BaseNopEntityModel
         {
-            [NopResourceDisplayName("Admin.Affiliates.Orders.OrderId")]
             public override int Id { get; set; }
             [NopResourceDisplayName("Admin.Affiliates.Orders.CustomOrderNumber")]
             public string CustomOrderNumber { get; set; }

@@ -1331,9 +1331,6 @@ set @resources='
   <LocaleResource Name="Admin.Affiliates.Orders.CustomOrderNumber">
     <Value>Order #</Value>
   </LocaleResource> 
-  <LocaleResource Name="Admin.Customers.Customers.Orders.ID">
-    <Value>Order ID</Value>
-  </LocaleResource>  
   <LocaleResource Name="Admin.Customers.Customers.Orders.CustomOrderNumber">
     <Value>Order #</Value>
   </LocaleResource>
@@ -1380,7 +1377,7 @@ set @resources='
     <Value>Order number mask</Value>
   </LocaleResource>  
   <LocaleResource Name="Admin.Configuration.Settings.Order.CustomOrderNumberMask.Hint">
-    <Value>Order number mask, for creating custom order number. For example, RE-{YYYY}-{MM}. Leave this field empty if you don''t want to use custom order numbers</Value>
+    <Value>Order number mask, for creating custom order number. For example, RE-{YYYY}-{MM}. Leave this field empty if you don''t want to use custom order numbers.</Value>
   </LocaleResource>
   <LocaleResource Name="Admin.Configuration.Settings.Order.CustomOrderNumberMask.Description.DD">
     <Value>{DD} - day of order creation date</Value>
@@ -1420,7 +1417,40 @@ set @resources='
   </LocaleResource> 
   <LocaleResource Name="Account.CustomerOrders.RecurringOrders.ViewInitialOrder">
     <Value>View order (Order number - {0})</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.ReturnRequests.Fields.CustomOrderNumber.Hint">
+    <Value>The unique number of the order.</Value>
   </LocaleResource>  
+  <LocaleResource Name="Admin.Affiliates.Orders.OrderId">
+    <Value></Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Customers.Customers.Orders.ID">
+    <Value></Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Promotions.Discounts.History.OrderId">
+    <Value></Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.GiftCards.History.OrderId">
+    <Value></Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Orders.Fields.ID">
+    <Value></Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Orders.Fields.ID.Hint">
+    <Value></Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.RecurringPayments.History.OrderId">
+    <Value></Value>
+  </LocaleResource>   
+  <LocaleResource Name="Admin.ReturnRequests.Fields.OrderId">
+    <Value></Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Orders.Shipments.OrderID">
+    <Value></Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Orders.Shipments.OrderID.Hint">
+    <Value></Value>
+  </LocaleResource>    
 </Language>
 '
 

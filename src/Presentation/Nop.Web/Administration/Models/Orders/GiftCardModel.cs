@@ -66,8 +66,7 @@ namespace Nop.Admin.Models.Orders
         {
             [NopResourceDisplayName("Admin.GiftCards.History.UsedValue")]
             public string UsedValue { get; set; }
-
-            [NopResourceDisplayName("Admin.GiftCards.History.OrderId")]
+            
             public int OrderId { get; set; }
 
             [NopResourceDisplayName("Admin.GiftCards.History.CreatedOn")]

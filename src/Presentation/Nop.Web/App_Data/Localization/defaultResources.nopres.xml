@@ -1452,18 +1452,15 @@
   <LocaleResource Name="Admin.Affiliates.Orders.CreatedOn">
     <Value>Created on</Value>
   </LocaleResource>
+  <LocaleResource Name="Admin.Affiliates.Orders.CustomOrderNumber">
+    <Value>Order #</Value>
+  </LocaleResource>   
   <LocaleResource Name="Admin.Affiliates.Orders.EndDate">
     <Value>End date</Value>
   </LocaleResource>
   <LocaleResource Name="Admin.Affiliates.Orders.EndDate.Hint">
     <Value>The end date for the search.</Value>
   </LocaleResource>
- <LocaleResource Name="Admin.Affiliates.Orders.OrderId">
-    <Value>Order ID</Value>
-  </LocaleResource>
-  <LocaleResource Name="Admin.Affiliates.Orders.CustomOrderNumber">
-    <Value>Order #</Value>
-  </LocaleResource>    
   <LocaleResource Name="Admin.Affiliates.Orders.OrderStatus">
     <Value>Order status</Value>
   </LocaleResource>
@@ -6571,7 +6568,7 @@
     <Value>{YYYY} - year of order creation date</Value>
   </LocaleResource>  
   <LocaleResource Name="Admin.Configuration.Settings.Order.CustomOrderNumberMask.Hint">
-    <Value>Order number mask, for creating custom order number. For example, RE-{YYYY}-{MM}. Leave this field empty if you don't want to use custom order numbers</Value>
+    <Value>Order number mask, for creating custom order number. For example, RE-{YYYY}-{MM}. Leave this field empty if you don't want to use custom order numbers.</Value>
   </LocaleResource>      
   <LocaleResource Name="Admin.Configuration.Settings.Order.IsReOrderAllowed">
     <Value>Is re-order allowed</Value>
@@ -9369,12 +9366,9 @@
   <LocaleResource Name="Admin.Customers.Customers.Orders.CreatedOn">
     <Value>Created on</Value>
   </LocaleResource>
-  <LocaleResource Name="Admin.Customers.Customers.Orders.ID">
-    <Value>Order ID</Value>
-  </LocaleResource>
   <LocaleResource Name="Admin.Customers.Customers.Orders.CustomOrderNumber">
     <Value>Order #</Value>
-  </LocaleResource>   
+  </LocaleResource>     
   <LocaleResource Name="Admin.Customers.Customers.Orders.OrderStatus">
     <Value>Order status</Value>
   </LocaleResource>
@@ -9696,6 +9690,12 @@
   <LocaleResource Name="Admin.GiftCards.Fields.CreatedOn.Hint">
     <Value>The date/time the gift card was created/purchased.</Value>
   </LocaleResource>
+  <LocaleResource Name="Admin.GiftCards.Fields.CustomOrderNumber">
+    <Value>Order</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.GiftCards.Fields.CustomOrderNumber.Hint">
+    <Value>The gift card was purchased with this order.</Value>
+  </LocaleResource>   
   <LocaleResource Name="Admin.GiftCards.Fields.GiftCardCouponCode">
     <Value>Coupon code</Value>
   </LocaleResource>
@@ -9738,12 +9738,6 @@
   <LocaleResource Name="Admin.GiftCards.Fields.OrderId.Hint">
     <Value>The gift card was purchased with this order.</Value>
   </LocaleResource>
-  <LocaleResource Name="Admin.GiftCards.Fields.CustomOrderNumber">
-    <Value>Order</Value>
-  </LocaleResource>
-  <LocaleResource Name="Admin.GiftCards.Fields.CustomOrderNumber.Hint">
-    <Value>The gift card was purchased with this order.</Value>
-  </LocaleResource>  
   <LocaleResource Name="Admin.GiftCards.Fields.RecipientEmail">
     <Value>Recipient's Email</Value>
   </LocaleResource>
@@ -9780,12 +9774,9 @@
   <LocaleResource Name="Admin.GiftCards.History.CreatedOn">
     <Value>Used</Value>
   </LocaleResource>
-  <LocaleResource Name="Admin.GiftCards.History.OrderId">
-    <Value>Order ID</Value>
-  </LocaleResource>  
   <LocaleResource Name="Admin.GiftCards.History.CustomOrderNumber">
     <Value>Order #</Value>
-  </LocaleResource>    
+  </LocaleResource>   
   <LocaleResource Name="Admin.GiftCards.History.UsedValue">
     <Value>Used amount</Value>
   </LocaleResource>
@@ -10002,6 +9993,12 @@
   <LocaleResource Name="Admin.Orders.Fields.CustomerIP.Hint">
     <Value>Customer IP address from where order has been placed.</Value>
   </LocaleResource>
+  <LocaleResource Name="Admin.Orders.Fields.CustomOrderNumber">
+    <Value>Order #</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Orders.Fields.CustomOrderNumber.Hint">
+    <Value>The unique number of this order.</Value>
+  </LocaleResource>    
   <LocaleResource Name="Admin.Orders.Fields.CustomValues">
     <Value>Custom values</Value>
   </LocaleResource>
@@ -10074,12 +10071,6 @@
   <LocaleResource Name="Admin.Orders.Fields.GiftCardInfo.Hint">
     <Value>Applied gift card.</Value>
   </LocaleResource>
-  <LocaleResource Name="Admin.Orders.Fields.ID">
-    <Value>Order ID</Value>
-  </LocaleResource>
-  <LocaleResource Name="Admin.Orders.Fields.ID.Hint">
-    <Value>The unique ID of this order.</Value>
-  </LocaleResource>
   <LocaleResource Name="Admin.Orders.Fields.MarkAsPaid">
     <Value>Mark as paid</Value>
   </LocaleResource>
@@ -10089,12 +10080,6 @@
   <LocaleResource Name="Admin.Orders.Fields.OrderGuid.Hint">
     <Value>Internal reference for order.</Value>
   </LocaleResource>
-  <LocaleResource Name="Admin.Orders.Fields.CustomOrderNumber">
-    <Value>Order #</Value>
-  </LocaleResource>
-  <LocaleResource Name="Admin.Orders.Fields.CustomOrderNumber.Hint">
-    <Value>The unique number of this order.</Value>
-  </LocaleResource>    
   <LocaleResource Name="Admin.Orders.Fields.OrderShipping">
     <Value>Order shipping</Value>
   </LocaleResource>
@@ -10617,6 +10602,12 @@
   <LocaleResource Name="Admin.Orders.Shipments.BackToOrder">
     <Value>back to order details</Value>
   </LocaleResource>
+  <LocaleResource Name="Admin.Orders.Shipments.CustomOrderNumber">
+    <Value>Order #</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Orders.Shipments.CustomOrderNumber.Hint">
+    <Value>The order associated to this shipment.</Value>
+  </LocaleResource>    
   <LocaleResource Name="Admin.Orders.Shipments.Deleted">
     <Value>The shipment has been deleted successfully.</Value>
   </LocaleResource>
@@ -10698,18 +10689,6 @@
   <LocaleResource Name="Admin.Orders.Shipments.NoShipmentsSelected">
     <Value>No shipments selected</Value>
   </LocaleResource>
-  <LocaleResource Name="Admin.Orders.Shipments.OrderID">
-    <Value>Order ID</Value>
-  </LocaleResource>
-  <LocaleResource Name="Admin.Orders.Shipments.OrderID.Hint">
-    <Value>The order associated to this shipment.</Value>
-  </LocaleResource>
-  <LocaleResource Name="Admin.Orders.Shipments.CustomOrderNumber">
-    <Value>Order #</Value>
-  </LocaleResource>  
-  <LocaleResource Name="Admin.Orders.Shipments.CustomOrderNumber.Hint">
-    <Value>The order associated to this shipment.</Value>
-  </LocaleResource>    
   <LocaleResource Name="Admin.Orders.Shipments.PrintPackagingSlip">
     <Value>Print packaging slip</Value>
   </LocaleResource>
@@ -11151,12 +11130,9 @@
   <LocaleResource Name="Admin.Promotions.Discounts.History.CreatedOn">
     <Value>Used</Value>
   </LocaleResource>
-  <LocaleResource Name="Admin.Promotions.Discounts.History.OrderId">
-    <Value>Order ID</Value>
-  </LocaleResource>
   <LocaleResource Name="Admin.Promotions.Discounts.History.CustomOrderNumber">
     <Value>Order #</Value>
-  </LocaleResource>  
+  </LocaleResource>    
   <LocaleResource Name="Admin.Promotions.Discounts.History.OrderTotal">
     <Value>Order total</Value>
   </LocaleResource>
@@ -11364,15 +11340,12 @@
   <LocaleResource Name="Admin.RecurringPayments.History.CreatedOn">
     <Value>Created on</Value>
   </LocaleResource>
+  <LocaleResource Name="Admin.RecurringPayments.History.CustomOrderNumber">
+    <Value>Created order</Value>
+  </LocaleResource>   
   <LocaleResource Name="Admin.RecurringPayments.History.NextPaymentDate">
     <Value>Next payment date</Value>
   </LocaleResource>
-  <LocaleResource Name="Admin.RecurringPayments.History.OrderId">
-    <Value>Created order ID</Value>
-  </LocaleResource>  
-  <LocaleResource Name="Admin.RecurringPayments.History.CustomOrderNumber">
-    <Value>Created order</Value>
-  </LocaleResource>      
   <LocaleResource Name="Admin.RecurringPayments.History.OrderStatus">
     <Value>Order status</Value>
   </LocaleResource>
@@ -11433,11 +11406,11 @@
   <LocaleResource Name="Admin.ReturnRequests.Fields.CustomNumber.Hint">
     <Value>Return request identifier.</Value>
   </LocaleResource>
-  <LocaleResource Name="Admin.ReturnRequests.Fields.OrderId">
-    <Value>Order ID</Value>
-  </LocaleResource>
   <LocaleResource Name="Admin.ReturnRequests.Fields.CustomOrderNumber">
     <Value>Order #</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.ReturnRequests.Fields.CustomOrderNumber.Hint">
+    <Value>The unique number of the order.</Value>
   </LocaleResource>  
   <LocaleResource Name="Admin.ReturnRequests.Fields.Product">
     <Value>Product</Value>

@@ -51,7 +51,6 @@ namespace Nop.Admin.Models.Orders
 
         public partial class RecurringPaymentHistoryModel : BaseNopEntityModel
         {
-            [NopResourceDisplayName("Admin.RecurringPayments.History.OrderId")]
             public int OrderId { get; set; }
 
             [NopResourceDisplayName("Admin.RecurringPayments.History.CustomOrderNumber")]

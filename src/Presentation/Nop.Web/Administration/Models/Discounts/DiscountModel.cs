@@ -97,8 +97,7 @@ namespace Nop.Admin.Models.Discounts
         public partial class DiscountUsageHistoryModel : BaseNopEntityModel
         {
             public int DiscountId { get; set; }
-
-            [NopResourceDisplayName("Admin.Promotions.Discounts.History.OrderId")]
+            
             public int OrderId { get; set; }
 
             [NopResourceDisplayName("Admin.Promotions.Discounts.History.CustomOrderNumber")]

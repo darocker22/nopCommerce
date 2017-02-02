@@ -4410,7 +4410,8 @@ namespace Nop.Services.Installation
                 ShippingRateComputationMethodSystemName = "Shipping.FixedOrByWeight",
                 CustomValuesXml = string.Empty,
                 VatNumber = string.Empty,
-                CreatedOnUtc = DateTime.UtcNow
+                CreatedOnUtc = DateTime.UtcNow,
+                CustomOrderNumber = string.Empty
             };
             _orderRepository.Insert(firstOrder);
             firstOrder.CustomOrderNumber = firstOrder.Id.ToString();
@@ -4576,7 +4577,8 @@ namespace Nop.Services.Installation
                 ShippingRateComputationMethodSystemName = "Shipping.FixedOrByWeight",
                 CustomValuesXml = string.Empty,
                 VatNumber = string.Empty,
-                CreatedOnUtc = DateTime.UtcNow
+                CreatedOnUtc = DateTime.UtcNow,
+                CustomOrderNumber = string.Empty
             };
             _orderRepository.Insert(secondOrder);
             secondOrder.CustomOrderNumber = secondOrder.Id.ToString();
@@ -4694,7 +4696,8 @@ namespace Nop.Services.Installation
                 ShippingRateComputationMethodSystemName = string.Empty,
                 CustomValuesXml = string.Empty,
                 VatNumber = string.Empty,
-                CreatedOnUtc = DateTime.UtcNow
+                CreatedOnUtc = DateTime.UtcNow,
+                CustomOrderNumber = string.Empty
             };
             _orderRepository.Insert(thirdOrder);
             thirdOrder.CustomOrderNumber = thirdOrder.Id.ToString();
@@ -4838,7 +4841,8 @@ namespace Nop.Services.Installation
                 ShippingRateComputationMethodSystemName = "Pickup.PickupInStore",
                 CustomValuesXml = string.Empty,
                 VatNumber = string.Empty,
-                CreatedOnUtc = DateTime.UtcNow
+                CreatedOnUtc = DateTime.UtcNow,
+                CustomOrderNumber = string.Empty
             };
             _orderRepository.Insert(fourthOrder);
             fourthOrder.CustomOrderNumber = fourthOrder.Id.ToString();
@@ -5049,7 +5053,8 @@ namespace Nop.Services.Installation
                 ShippingRateComputationMethodSystemName = "Shipping.FixedOrByWeight",
                 CustomValuesXml = string.Empty,
                 VatNumber = string.Empty,
-                CreatedOnUtc = DateTime.UtcNow
+                CreatedOnUtc = DateTime.UtcNow,
+                CustomOrderNumber = string.Empty
             };
             _orderRepository.Insert(fifthOrder);
             fifthOrder.CustomOrderNumber = fifthOrder.Id.ToString();

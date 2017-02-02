@@ -12,8 +12,7 @@ namespace Nop.Admin.Models.Orders
     {
         [NopResourceDisplayName("Admin.ReturnRequests.Fields.CustomNumber")]
         public string CustomNumber { get; set; }
-
-        [NopResourceDisplayName("Admin.ReturnRequests.Fields.OrderId")]
+        
         public int OrderId { get; set; }
         [NopResourceDisplayName("Admin.ReturnRequests.Fields.CustomOrderNumber")]
         public string CustomOrderNumber { get; set; }
