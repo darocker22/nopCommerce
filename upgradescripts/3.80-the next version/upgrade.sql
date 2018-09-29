@@ -1423,7 +1423,184 @@ set @resources='
   </LocaleResource>
   <LocaleResource Name="Admin.ContentManagement.News.Comments.List.SearchApproved.DisapprovedOnly">
     <Value>Disapproved only</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Payments.PayPalStandard.RoundingWarning">
+    <Value>It looks like you have "ShoppingCartSettings.RoundPricesDuringCalculation" setting disabled. Keep in mind that this can lead to a discrepancy of the order total amount, as PayPal only rounds to two decimals.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Affiliates.Orders.Order">
+    <Value></Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Promotions.Discounts.History.Order">
+    <Value></Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.GiftCards.History.Order">
+    <Value></Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.RecurringPayments.History.Order">
+    <Value></Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.ReturnRequests.Fields.Order">
+    <Value></Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.ReturnRequests.Fields.Order.Hint">
+    <Value></Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Affiliates.Orders.OrderId">
+    <Value>Order ID</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Affiliates.Orders.CustomOrderNumber">
+    <Value>Order #</Value>
+  </LocaleResource> 
+  <LocaleResource Name="Admin.Customers.Customers.Orders.CustomOrderNumber">
+    <Value>Order #</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Promotions.Discounts.History.OrderId">
+    <Value>Order ID</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Promotions.Discounts.History.CustomOrderNumber">
+    <Value>Order #</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.GiftCards.History.OrderId">
+    <Value>Order ID</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.GiftCards.History.CustomOrderNumber">
+    <Value>Order #</Value>
+  </LocaleResource> 
+  <LocaleResource Name="Admin.Orders.Fields.CustomOrderNumber">
+    <Value>Order #</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Orders.Fields.CustomOrderNumber.Hint">
+    <Value>The unique number of this order.</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.RecurringPayments.History.OrderId">
+    <Value>Created order ID</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.RecurringPayments.History.CustomOrderNumber">
+    <Value>Created order</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.ReturnRequests.Fields.OrderId">
+    <Value>Order ID</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.ReturnRequests.Fields.CustomOrderNumber">
+    <Value>Order #</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Orders.Shipments.OrderID">
+    <Value>Order ID</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Orders.Shipments.CustomOrderNumber">
+    <Value>Order #</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Orders.Shipments.CustomOrderNumber.Hint">
+    <Value>The order associated to this shipment.</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Configuration.Settings.Order.CustomOrderNumberMask">
+    <Value>Order number mask</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Configuration.Settings.Order.CustomOrderNumberMask.Hint">
+    <Value>Order number mask, for creating custom order number. For example, RE-{YYYY}-{MM}. Leave this field empty if you don''t want to use custom order numbers.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.Order.CustomOrderNumberMask.Description.DD">
+    <Value>{DD} - day of order creation date</Value>
+  </LocaleResource>   
+  <LocaleResource Name="Admin.Configuration.Settings.Order.CustomOrderNumberMask.Description.ID">
+    <Value>{ID} -Order identifier</Value>
   </LocaleResource>     
+  <LocaleResource Name="Admin.Configuration.Settings.Order.CustomOrderNumberMask.Description.MM">
+    <Value>{MM} - month of order creation date</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.Order.CustomOrderNumberMask.Description.YYYY">
+    <Value>{YYYY} - year of order creation date</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.Order.CustomOrderNumberMask.Description.YY">
+    <Value>{YY} - last two digits of year of order creation date</Value>
+  </LocaleResource>    
+  <LocaleResource Name="Admin.GiftCards.Fields.Order">
+    <Value></Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.GiftCards.Fields.Order.Hint">
+    <Value></Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.GiftCards.Fields.OrderId">
+    <Value>Order</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.GiftCards.Fields.OrderId.Hint">
+    <Value>The gift card was purchased with this order.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.GiftCards.Fields.CustomOrderNumber">
+    <Value>Order</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.GiftCards.Fields.CustomOrderNumber.Hint">
+    <Value>The gift card was purchased with this order.</Value>
+  </LocaleResource>   
+  <LocaleResource Name="ActivityLog.EditOrder">
+    <Value>Edited an order (Order number = {0}). See order notes for details</Value>
+  </LocaleResource> 
+  <LocaleResource Name="Account.CustomerOrders.RecurringOrders.ViewInitialOrder">
+    <Value>View order (Order number - {0})</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.ReturnRequests.Fields.CustomOrderNumber.Hint">
+    <Value>The unique number of the order.</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Affiliates.Orders.OrderId">
+    <Value></Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Customers.Customers.Orders.ID">
+    <Value></Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Promotions.Discounts.History.OrderId">
+    <Value></Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.GiftCards.History.OrderId">
+    <Value></Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Orders.Fields.ID">
+    <Value></Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Orders.Fields.ID.Hint">
+    <Value></Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.RecurringPayments.History.OrderId">
+    <Value></Value>
+  </LocaleResource>   
+  <LocaleResource Name="Admin.ReturnRequests.Fields.OrderId">
+    <Value></Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Orders.Shipments.OrderID">
+    <Value></Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Orders.Shipments.OrderID.Hint">
+    <Value></Value>
+  </LocaleResource>    
+  <LocaleResource Name="Plugins.Payments.PayPalDirect.Fields.PassPurchasedItems">
+    <Value>Pass purchased items</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Payments.PayPalDirect.Fields.PassPurchasedItems.Hint">
+    <Value>Check to pass information about purchased items to PayPal.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.CustomerUser.UnduplicatedPasswordsNumber">
+    <Value>Unduplicated passwords number</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.CustomerUser.UnduplicatedPasswordsNumber.Hint">
+    <Value>Specify the number of customer passwords that mustn''t be the same as the previous one, enter 0 if the customer can use the same password time after time.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Account.ChangePassword.Errors.PasswordMatchesWithPrevious">
+    <Value>You entered the password that is the same as one of the last passwords you used. Please create a new password.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Account.ChangePassword.PasswordIsExpired">
+    <Value>Your password has expired, please create a new one</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.CustomerUser.PasswordLifetime">
+    <Value>Password lifetime</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.CustomerUser.PasswordLifetime.Hint">
+    <Value>Specify number of days for password expiration. Don''t forget to check "EnablePasswordLifetime" property on customer role edit page for those roles, who will have to change passwords.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Customers.CustomerRoles.Fields.EnablePasswordLifetime">
+    <Value>Enable password lifetime</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Customers.CustomerRoles.Fields.EnablePasswordLifetime.Hint">
+    <Value>Check to force customers to change their passwords after a specified time.</Value>
+  </LocaleResource>
 </Language>
 '
 
@@ -3811,4 +3988,121 @@ BEGIN
     INSERT [dbo].[MessageTemplate] ([Name], [BccEmailAddresses], [Subject], [Body], [IsActive], [AttachedDownloadId], [EmailAccountId], [LimitedToStores], [DelayPeriodId]) 
     VALUES (N'RecurringPaymentFailed.CustomerNotification', NULL, N'%Store.Name%. Last recurring payment failed', N'<p>' + @NewLine + '<a href=\"%Store.URL%\">%Store.Name%</a>' + @NewLine + '<br />' + @NewLine + '<br />' + @NewLine + 'Hello %Customer.FullName%,' + @NewLine + '<br />' + @NewLine + 'It appears your credit card didn''t go through for this recurring payment (<a href=\"%Order.OrderURLForCustomer%\" target=\"_blank\">%Order.OrderURLForCustomer%</a>)' + @NewLine + '<br /> %if (%RecurringPayment.RecurringPaymentType% == "Manual") ' + @NewLine + 'You can recharge balance and manually retry payment or cancel it on the order history page. endif% %if (%RecurringPayment.RecurringPaymentType% == "Automatic") ' + @NewLine + 'You can recharge balance and wait, we will try to make the payment again, or you can cancel it on the order history page. endif%' + @NewLine + '</p>' + @NewLine, 1, 0, 0, 0, 0)
 END
+GO
+--new column
+IF NOT EXISTS (SELECT 1 FROM sys.columns WHERE object_id=object_id('[Order]') and NAME='CustomOrderNumber')
+BEGIN
+	ALTER TABLE [Order]
+	ADD [CustomOrderNumber] nvarchar(MAX) NULL
+END
+GO
+
+UPDATE [Order]
+SET [CustomOrderNumber] = [id]
+WHERE [CustomOrderNumber] IS NULL
+GO
+
+ALTER TABLE [Order] ALTER COLUMN [CustomOrderNumber] nvarchar(MAX) NOT NULL
+GO
+
+ --new setting
+IF NOT EXISTS (SELECT 1 FROM [Setting] WHERE [name] = N'ordersettings.customordernumbermask')
+BEGIN
+    INSERT [Setting] ([Name], [Value], [StoreId])
+    VALUES (N'ordersettings.customordernumbermask', N'{ID}', 0)
+END
+GO
+
+ --new table
+IF NOT EXISTS (SELECT 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[CustomerPassword]') and OBJECTPROPERTY(object_id, N'IsUserTable') = 1)
+BEGIN
+	CREATE TABLE [dbo].[CustomerPassword]
+    (
+		[Id] int IDENTITY(1,1) NOT NULL,
+        [CustomerId] int NOT NULL,
+		[Password] NVARCHAR (MAX) NULL,
+        [PasswordFormatId] INT NOT NULL,
+        [PasswordSalt] NVARCHAR (MAX) NULL,
+		[CreatedOnUtc] datetime NOT NULL
+		PRIMARY KEY CLUSTERED 
+		(
+			[Id] ASC
+		) WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON)
+	)
+END
+GO
+
+IF EXISTS (SELECT 1 FROM sys.objects WHERE name = 'CustomerPassword_Customer' AND parent_object_id = Object_id('CustomerPassword') AND Objectproperty(object_id, N'IsForeignKey') = 1)
+BEGIN
+    ALTER TABLE [dbo].CustomerPassword
+    DROP CONSTRAINT CustomerPassword_Customer
+END
+GO
+
+ALTER TABLE [dbo].[CustomerPassword] WITH CHECK ADD CONSTRAINT [CustomerPassword_Customer] FOREIGN KEY([CustomerId])
+REFERENCES [dbo].[Customer] ([Id])
+ON DELETE CASCADE
+GO
+
+--move customer passwords into a new table
+IF EXISTS (SELECT 1 FROM sys.columns WHERE object_id=object_id('[Customer]') and (NAME='Password' or NAME='PasswordFormatId' or NAME='PasswordSalt'))
+BEGIN
+    EXEC('
+        INSERT INTO [dbo].[CustomerPassword]([CustomerId], [Password], [PasswordFormatId], [PasswordSalt], [CreatedOnUtc])
+        SELECT [Id], [Password], [PasswordFormatId], [PasswordSalt], [CreatedOnUtc]
+        FROM [dbo].[Customer]')
+END
+GO
+
+--drop column
+IF EXISTS (SELECT 1 FROM sys.columns WHERE object_id=object_id('[Customer]') and NAME='Password')
+BEGIN
+	ALTER TABLE [Customer] DROP COLUMN [Password]
+END
+GO
+
+--drop column
+IF EXISTS (SELECT 1 FROM sys.columns WHERE object_id=object_id('[Customer]') and NAME='PasswordFormatId')
+BEGIN
+	ALTER TABLE [Customer] DROP COLUMN [PasswordFormatId]
+END
+GO
+
+--drop column
+IF EXISTS (SELECT 1 FROM sys.columns WHERE object_id=object_id('[Customer]') and NAME='PasswordSalt')
+BEGIN
+	ALTER TABLE [Customer] DROP COLUMN [PasswordSalt]
+END
+GO
+
+ --new setting
+IF NOT EXISTS (SELECT 1 FROM [Setting] WHERE [name] = N'customersettings.unduplicatedpasswordsnumber')
+BEGIN
+    INSERT [Setting] ([Name], [Value], [StoreId])
+    VALUES (N'customersettings.unduplicatedpasswordsnumber', N'4', 0)
+END
+GO
+
+ --new setting
+IF NOT EXISTS (SELECT 1 FROM [Setting] WHERE [name] = N'customersettings.passwordlifetime')
+BEGIN
+    INSERT [Setting] ([Name], [Value], [StoreId])
+    VALUES (N'customersettings.passwordlifetime', N'90', 0)
+END
+GO
+
+--new column
+IF NOT EXISTS (SELECT 1 FROM sys.columns WHERE object_id=object_id('[CustomerRole]') and NAME='EnablePasswordLifetime')
+BEGIN
+	ALTER TABLE [CustomerRole]
+	ADD [EnablePasswordLifetime] bit NULL
+END
+GO
+
+UPDATE [CustomerRole]
+SET [EnablePasswordLifetime] = 0
+WHERE [EnablePasswordLifetime] IS NULL
+GO
+
+ALTER TABLE [CustomerRole] ALTER COLUMN [EnablePasswordLifetime] bit NOT NULL
 GO
