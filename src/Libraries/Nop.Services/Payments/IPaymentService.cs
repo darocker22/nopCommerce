@@ -36,19 +36,26 @@ namespace Nop.Services.Payments
         /// <returns>Payment providers</returns>
         IList<IPaymentMethod> LoadAllPaymentMethods(Customer customer = null, int storeId = 0, int filterByCountryId = 0);
 
+        /// <summary>
+        /// Is payment method active?
+        /// </summary>
+        /// <param name="paymentMethod">Payment method</param>
+        /// <returns>Result</returns>
+        bool IsPaymentMethodActive(IPaymentMethod paymentMethod);
+
         #endregion
 
         #region Restrictions
 
         /// <summary>
-        /// Gets a list of coutnry identifiers in which a certain payment method is now allowed
+        /// Gets a list of country identifiers in which a certain payment method is now allowed
         /// </summary>
         /// <param name="paymentMethod">Payment method</param>
         /// <returns>A list of country identifiers</returns>
         IList<int> GetRestictedCountryIds(IPaymentMethod paymentMethod);
 
         /// <summary>
-        /// Saves a list of coutnry identifiers in which a certain payment method is now allowed
+        /// Saves a list of country identifiers in which a certain payment method is now allowed
         /// </summary>
         /// <param name="paymentMethod">Payment method</param>
         /// <param name="countryIds">A list of country identifiers</param>
@@ -81,7 +88,7 @@ namespace Nop.Services.Payments
         /// <summary>
         /// Gets an additional handling fee of a payment method
         /// </summary>
-        /// <param name="cart">Shoping cart</param>
+        /// <param name="cart">Shopping cart</param>
         /// <param name="paymentMethodSystemName">Payment method system name</param>
         /// <returns>Additional handling fee</returns>
         decimal GetAdditionalHandlingFee(IList<ShoppingCartItem> cart, string paymentMethodSystemName);
@@ -162,6 +169,29 @@ namespace Nop.Services.Payments
         /// <param name="creditCardNumber">Credit card number</param>
         /// <returns>Masked credit card number</returns>
         string GetMaskedCreditCardNumber(string creditCardNumber);
+
+        /// <summary>
+        /// Calculate payment method fee
+        /// </summary>
+        /// <param name="cart">Shopping cart</param>
+        /// <param name="fee">Fee value</param>
+        /// <param name="usePercentage">Is fee amount specified as percentage or fixed value?</param>
+        /// <returns>Result</returns>
+        decimal CalculateAdditionalFee(IList<ShoppingCartItem> cart, decimal fee, bool usePercentage);
+
+        /// <summary>
+        /// Serialize CustomValues of ProcessPaymentRequest
+        /// </summary>
+        /// <param name="request">Request</param>
+        /// <returns>Serialized CustomValues</returns>
+        string SerializeCustomValues(ProcessPaymentRequest request);
+
+        /// <summary>
+        /// Deserialize CustomValues of Order
+        /// </summary>
+        /// <param name="order">Order</param>
+        /// <returns>Serialized CustomValues CustomValues</returns>
+        Dictionary<string, object> DeserializeCustomValues(Order order);
 
         #endregion
     }

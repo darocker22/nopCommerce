@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Linq;
-using System.Web.Mvc;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
 using Nop.Core;
 using Nop.Core.Domain;
 using Nop.Core.Domain.Common;
 using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Localization;
-using Nop.Core.Domain.Messages;
+using Nop.Core.Domain.Security;
 using Nop.Core.Domain.Tax;
 using Nop.Core.Domain.Vendors;
 using Nop.Services.Common;
@@ -16,8 +16,8 @@ using Nop.Services.Logging;
 using Nop.Services.Messages;
 using Nop.Services.Vendors;
 using Nop.Web.Factories;
-using Nop.Web.Framework;
 using Nop.Web.Framework.Localization;
+using Nop.Web.Framework.Mvc.Filters;
 using Nop.Web.Framework.Security;
 using Nop.Web.Framework.Security.Captcha;
 using Nop.Web.Framework.Themes;
@@ -29,119 +29,98 @@ namespace Nop.Web.Controllers
     {
         #region Fields
 
-        private readonly ICommonModelFactory _commonModelFactory;
-        private readonly ILanguageService _languageService;
-        private readonly ICurrencyService _currencyService;
-        private readonly ILocalizationService _localizationService;
-        private readonly IWorkContext _workContext;
-        private readonly IStoreContext _storeContext;
-        private readonly IQueuedEmailService _queuedEmailService;
-        private readonly IEmailAccountService _emailAccountService;
-        private readonly IThemeContext _themeContext;
-        private readonly IGenericAttributeService _genericAttributeService;
-        private readonly ICustomerActivityService _customerActivityService;
-        private readonly IVendorService _vendorService;
-
-        private readonly TaxSettings _taxSettings;
-        private readonly StoreInformationSettings _storeInformationSettings;
-        private readonly EmailAccountSettings _emailAccountSettings;
-        private readonly CommonSettings _commonSettings;
-        private readonly LocalizationSettings _localizationSettings;
         private readonly CaptchaSettings _captchaSettings;
+        private readonly CommonSettings _commonSettings;
+        private readonly ICommonModelFactory _commonModelFactory;
+        private readonly ICurrencyService _currencyService;
+        private readonly ICustomerActivityService _customerActivityService;
+        private readonly IGenericAttributeService _genericAttributeService;
+        private readonly ILanguageService _languageService;
+        private readonly ILocalizationService _localizationService;
+        private readonly ILogger _logger;
+        private readonly IStoreContext _storeContext;
+        private readonly IThemeContext _themeContext;
+        private readonly IVendorService _vendorService;
+        private readonly IWorkContext _workContext;
+        private readonly IWorkflowMessageService _workflowMessageService;
+        private readonly LocalizationSettings _localizationSettings;
+        private readonly StoreInformationSettings _storeInformationSettings;
         private readonly VendorSettings _vendorSettings;
-
+        
         #endregion
+        
+        #region Ctor
 
-        #region Constructors
-
-        public CommonController(ICommonModelFactory commonModelFactory,
-            ILanguageService languageService,
-            ICurrencyService currencyService,
-            ILocalizationService localizationService,
-            IWorkContext workContext,
-            IStoreContext storeContext,
-            IQueuedEmailService queuedEmailService,
-            IEmailAccountService emailAccountService,
-            IThemeContext themeContext,
-            IGenericAttributeService genericAttributeService,
-            ICustomerActivityService customerActivityService,
-            IVendorService vendorService,
-            TaxSettings taxSettings,
-            StoreInformationSettings storeInformationSettings,
-            EmailAccountSettings emailAccountSettings,
+        public CommonController(CaptchaSettings captchaSettings,
             CommonSettings commonSettings,
+            ICommonModelFactory commonModelFactory,
+            ICurrencyService currencyService,
+            ICustomerActivityService customerActivityService,
+            IGenericAttributeService genericAttributeService,
+            ILanguageService languageService,
+            ILocalizationService localizationService,
+            ILogger logger,
+            IStoreContext storeContext,
+            IThemeContext themeContext,
+            IVendorService vendorService,
+            IWorkContext workContext,
+            IWorkflowMessageService workflowMessageService,
             LocalizationSettings localizationSettings,
-            CaptchaSettings captchaSettings,
+            StoreInformationSettings storeInformationSettings,
             VendorSettings vendorSettings)
         {
-            this._commonModelFactory = commonModelFactory;
-            this._languageService = languageService;
-            this._currencyService = currencyService;
-            this._localizationService = localizationService;
-            this._workContext = workContext;
-            this._storeContext = storeContext;
-            this._queuedEmailService = queuedEmailService;
-            this._emailAccountService = emailAccountService;
-            this._themeContext = themeContext;
-            this._genericAttributeService = genericAttributeService;
-            this._customerActivityService = customerActivityService;
-            this._vendorService = vendorService;
-
-            this._taxSettings = taxSettings;
-            this._storeInformationSettings = storeInformationSettings;
-            this._emailAccountSettings = emailAccountSettings;
-            this._commonSettings = commonSettings;
-            this._localizationSettings = localizationSettings;
             this._captchaSettings = captchaSettings;
+            this._commonSettings = commonSettings;
+            this._commonModelFactory = commonModelFactory;
+            this._currencyService = currencyService;
+            this._customerActivityService = customerActivityService;
+            this._genericAttributeService = genericAttributeService;
+            this._languageService = languageService;
+            this._localizationService = localizationService;
+            this._logger = logger;
+            this._storeContext = storeContext;
+            this._themeContext = themeContext;
+            this._vendorService = vendorService;
+            this._workContext = workContext;
+            this._workflowMessageService = workflowMessageService;
+            this._localizationSettings = localizationSettings;
+            this._storeInformationSettings = storeInformationSettings;
             this._vendorSettings = vendorSettings;
         }
 
         #endregion
 
         #region Methods
-
+        
         //page not found
-        public virtual ActionResult PageNotFound()
+        public virtual IActionResult PageNotFound()
         {
-            this.Response.StatusCode = 404;
-            this.Response.TrySkipIisCustomErrors = true;
+            if (_commonSettings.Log404Errors)
+            {
+                var statusCodeReExecuteFeature = HttpContext?.Features?.Get<IStatusCodeReExecuteFeature>();
+                //TODO add locale resource
+                _logger.Error($"Error 404. The requested page ({statusCodeReExecuteFeature?.OriginalPath}) was not found", 
+                    customer: _workContext.CurrentCustomer);
+            }
+
+            Response.StatusCode = 404;
+            Response.ContentType = "text/html";
 
             return View();
         }
-
-        //logo
-        [ChildActionOnly]
-        public virtual ActionResult Logo()
-        {
-            var model = _commonModelFactory.PrepareLogoModel();
-            return PartialView(model);
-        }
-
-        //language
-        [ChildActionOnly]
-        public virtual ActionResult LanguageSelector()
-        {
-            var model = _commonModelFactory.PrepareLanguageSelectorModel();
-
-            if (model.AvailableLanguages.Count == 1)
-                Content("");
-
-            return PartialView(model);
-        }
+        
         //available even when a store is closed
-        [StoreClosed(true)]
+        [CheckAccessClosedStore(true)]
         //available even when navigation is not allowed
-        [PublicStoreAllowNavigation(true)]
-        public virtual ActionResult SetLanguage(int langid, string returnUrl = "")
+        [CheckAccessPublicStore(true)]
+        public virtual IActionResult SetLanguage(int langid, string returnUrl = "")
         {
             var language = _languageService.GetLanguageById(langid);
-            if (language != null && language.Published)
-            {
-                _workContext.WorkingLanguage = language;
-            }
+            if (!language?.Published ?? false)
+                language = _workContext.WorkingLanguage;
 
             //home page
-            if (String.IsNullOrEmpty(returnUrl))
+            if (string.IsNullOrEmpty(returnUrl))
                 returnUrl = Url.RouteUrl("HomePage");
 
             //prevent open redirection attack
@@ -151,37 +130,29 @@ namespace Nop.Web.Controllers
             //language part in URL
             if (_localizationSettings.SeoFriendlyUrlsForLanguagesEnabled)
             {
-                string applicationPath = HttpContext.Request.ApplicationPath;
-                if (returnUrl.IsLocalizedUrl(applicationPath, true))
-                {
-                    //already localized URL
-                    returnUrl = returnUrl.RemoveLanguageSeoCodeFromRawUrl(applicationPath);
-                }
-                returnUrl = returnUrl.AddLanguageSeoCodeToRawUrl(applicationPath, _workContext.WorkingLanguage);
+                //remove current language code if it's already localized URL
+                if (returnUrl.IsLocalizedUrl(this.Request.PathBase, true, out Language _))
+                    returnUrl = returnUrl.RemoveLanguageSeoCodeFromUrl(this.Request.PathBase, true);
+
+                //and add code of passed language
+                returnUrl = returnUrl.AddLanguageSeoCodeToUrl(this.Request.PathBase, true, language);
             }
+
+            _workContext.WorkingLanguage = language;
+
             return Redirect(returnUrl);
         }
 
-        //currency
-        [ChildActionOnly]
-        public virtual ActionResult CurrencySelector()
-        {
-            var model = _commonModelFactory.PrepareCurrencySelectorModel();
-            if (model.AvailableCurrencies.Count == 1)
-                Content("");
-
-            return PartialView(model);
-        }
         //available even when navigation is not allowed
-        [PublicStoreAllowNavigation(true)]
-        public virtual ActionResult SetCurrency(int customerCurrency, string returnUrl = "")
+        [CheckAccessPublicStore(true)]
+        public virtual IActionResult SetCurrency(int customerCurrency, string returnUrl = "")
         {
             var currency = _currencyService.GetCurrencyById(customerCurrency);
             if (currency != null)
                 _workContext.WorkingCurrency = currency;
 
             //home page
-            if (String.IsNullOrEmpty(returnUrl))
+            if (string.IsNullOrEmpty(returnUrl))
                 returnUrl = Url.RouteUrl("HomePage");
 
             //prevent open redirection attack
@@ -190,26 +161,16 @@ namespace Nop.Web.Controllers
 
             return Redirect(returnUrl);
         }
-
-        //tax type
-        [ChildActionOnly]
-        public virtual ActionResult TaxTypeSelector()
-        {
-            if (!_taxSettings.AllowCustomersToSelectTaxDisplayType)
-                return Content("");
-
-            var model = _commonModelFactory.PrepareTaxTypeSelectorModel();
-            return PartialView(model);
-        }
+        
         //available even when navigation is not allowed
-        [PublicStoreAllowNavigation(true)]
-        public virtual ActionResult SetTaxType(int customerTaxType, string returnUrl = "")
+        [CheckAccessPublicStore(true)]
+        public virtual IActionResult SetTaxType(int customerTaxType, string returnUrl = "")
         {
             var taxDisplayType = (TaxDisplayType)Enum.ToObject(typeof(TaxDisplayType), customerTaxType);
             _workContext.TaxDisplayType = taxDisplayType;
 
             //home page
-            if (String.IsNullOrEmpty(returnUrl))
+            if (string.IsNullOrEmpty(returnUrl))
                 returnUrl = Url.RouteUrl("HomePage");
 
             //prevent open redirection attack
@@ -219,65 +180,23 @@ namespace Nop.Web.Controllers
             return Redirect(returnUrl);
         }
 
-        //footer
-        [ChildActionOnly]
-        public virtual ActionResult JavaScriptDisabledWarning()
-        {
-            if (!_commonSettings.DisplayJavaScriptDisabledWarning)
-                return Content("");
-
-            return PartialView();
-        }
-
-        //header links
-        [ChildActionOnly]
-        public virtual ActionResult HeaderLinks()
-        {
-            var model = _commonModelFactory.PrepareHeaderLinksModel();
-            return PartialView(model);
-        }
-        [ChildActionOnly]
-        public virtual ActionResult AdminHeaderLinks()
-        {
-            var model = _commonModelFactory.PrepareAdminHeaderLinksModel();
-            return PartialView(model);
-        }
-
-
-        //social
-        [ChildActionOnly]
-        public virtual ActionResult Social()
-        {
-            var model = _commonModelFactory.PrepareSocialModel();
-            return PartialView(model);
-        }
-
-
-        //footer
-        [ChildActionOnly]
-        public virtual ActionResult Footer()
-        {
-            var model = _commonModelFactory.PrepareFooterModel();
-            return PartialView(model);
-        }
-
-
         //contact us page
-        [NopHttpsRequirement(SslRequirement.Yes)]
+        [HttpsRequirement(SslRequirement.Yes)]
         //available even when a store is closed
-        [StoreClosed(true)]
-        public virtual ActionResult ContactUs()
+        [CheckAccessClosedStore(true)]
+        public virtual IActionResult ContactUs()
         {
             var model = new ContactUsModel();
             model = _commonModelFactory.PrepareContactUsModel(model, false);
             return View(model);
         }
+
         [HttpPost, ActionName("ContactUs")]
         [PublicAntiForgery]
-        [CaptchaValidator]
+        [ValidateCaptcha]
         //available even when a store is closed
-        [StoreClosed(true)]
-        public virtual ActionResult ContactUsSend(ContactUsModel model, bool captchaValid)
+        [CheckAccessClosedStore(true)]
+        public virtual IActionResult ContactUsSend(ContactUsModel model, bool captchaValid)
         {
             //validate CAPTCHA
             if (_captchaSettings.Enabled && _captchaSettings.ShowOnContactUsPage && !captchaValid)
@@ -289,64 +208,28 @@ namespace Nop.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                string email = model.Email.Trim();
-                string fullName = model.FullName;
-                string subject = _commonSettings.SubjectFieldOnContactUsForm ?
-                    model.Subject :
-                    string.Format(_localizationService.GetResource("ContactUs.EmailSubject"), _storeContext.CurrentStore.GetLocalized(x => x.Name));
+                var subject = _commonSettings.SubjectFieldOnContactUsForm ? model.Subject : null;
+                var body = Core.Html.HtmlHelper.FormatText(model.Enquiry, false, true, false, false, false, false);
 
-                var emailAccount = _emailAccountService.GetEmailAccountById(_emailAccountSettings.DefaultEmailAccountId);
-                if (emailAccount == null)
-                    emailAccount = _emailAccountService.GetAllEmailAccounts().FirstOrDefault();
-                if (emailAccount == null)
-                    throw new Exception("No email account could be loaded");
-
-                string from;
-                string fromName;
-                string body = Core.Html.HtmlHelper.FormatText(model.Enquiry, false, true, false, false, false, false);
-                //required for some SMTP servers
-                if (_commonSettings.UseSystemEmailForContactUsForm)
-                {
-                    from = emailAccount.Email;
-                    fromName = emailAccount.DisplayName;
-                    body = string.Format("<strong>From</strong>: {0} - {1}<br /><br />{2}",
-                        Server.HtmlEncode(fullName),
-                        Server.HtmlEncode(email), body);
-                }
-                else
-                {
-                    from = email;
-                    fromName = fullName;
-                }
-                _queuedEmailService.InsertQueuedEmail(new QueuedEmail
-                {
-                    From = from,
-                    FromName = fromName,
-                    To = emailAccount.Email,
-                    ToName = emailAccount.DisplayName,
-                    ReplyTo = email,
-                    ReplyToName = fullName,
-                    Priority = QueuedEmailPriority.High,
-                    Subject = subject,
-                    Body = body,
-                    CreatedOnUtc = DateTime.UtcNow,
-                    EmailAccountId = emailAccount.Id
-                });
+                _workflowMessageService.SendContactUsMessage(_workContext.WorkingLanguage.Id,
+                    model.Email.Trim(), model.FullName, subject, body);
 
                 model.SuccessfullySent = true;
                 model.Result = _localizationService.GetResource("ContactUs.YourEnquiryHasBeenSent");
 
                 //activity log
-                _customerActivityService.InsertActivity("PublicStore.ContactUs", _localizationService.GetResource("ActivityLog.PublicStore.ContactUs"));
+                _customerActivityService.InsertActivity("PublicStore.ContactUs", 
+                    _localizationService.GetResource("ActivityLog.PublicStore.ContactUs"));
 
                 return View(model);
             }
 
             return View(model);
         }
+
         //contact vendor page
-        [NopHttpsRequirement(SslRequirement.Yes)]
-        public virtual ActionResult ContactVendor(int vendorId)
+        [HttpsRequirement(SslRequirement.Yes)]
+        public virtual IActionResult ContactVendor(int vendorId)
         {
             if (!_vendorSettings.AllowCustomersToContactVendors)
                 return RedirectToRoute("HomePage");
@@ -359,10 +242,11 @@ namespace Nop.Web.Controllers
             model = _commonModelFactory.PrepareContactVendorModel(model, vendor, false);
             return View(model);
         }
+
         [HttpPost, ActionName("ContactVendor")]
         [PublicAntiForgery]
-        [CaptchaValidator]
-        public virtual ActionResult ContactVendorSend(ContactVendorModel model, bool captchaValid)
+        [ValidateCaptcha]
+        public virtual IActionResult ContactVendorSend(ContactVendorModel model, bool captchaValid)
         {
             if (!_vendorSettings.AllowCustomersToContactVendors)
                 return RedirectToRoute("HomePage");
@@ -381,51 +265,11 @@ namespace Nop.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                string email = model.Email.Trim();
-                string fullName = model.FullName;
+                var subject = _commonSettings.SubjectFieldOnContactUsForm ? model.Subject : null;
+                var body = Core.Html.HtmlHelper.FormatText(model.Enquiry, false, true, false, false, false, false);
 
-                string subject = _commonSettings.SubjectFieldOnContactUsForm ?
-                    model.Subject :
-                    string.Format(_localizationService.GetResource("ContactVendor.EmailSubject"), _storeContext.CurrentStore.GetLocalized(x => x.Name));
-
-
-                var emailAccount = _emailAccountService.GetEmailAccountById(_emailAccountSettings.DefaultEmailAccountId);
-                if (emailAccount == null)
-                    emailAccount = _emailAccountService.GetAllEmailAccounts().FirstOrDefault();
-                if (emailAccount == null)
-                    throw new Exception("No email account could be loaded");
-
-                string from;
-                string fromName;
-                string body = Core.Html.HtmlHelper.FormatText(model.Enquiry, false, true, false, false, false, false);
-                //required for some SMTP servers
-                if (_commonSettings.UseSystemEmailForContactUsForm)
-                {
-                    from = emailAccount.Email;
-                    fromName = emailAccount.DisplayName;
-                    body = string.Format("<strong>From</strong>: {0} - {1}<br /><br />{2}",
-                        Server.HtmlEncode(fullName),
-                        Server.HtmlEncode(email), body);
-                }
-                else
-                {
-                    from = email;
-                    fromName = fullName;
-                }
-                _queuedEmailService.InsertQueuedEmail(new QueuedEmail
-                {
-                    From = from,
-                    FromName = fromName,
-                    To = vendor.Email,
-                    ToName = vendor.Name,
-                    ReplyTo = email,
-                    ReplyToName = fullName,
-                    Priority = QueuedEmailPriority.High,
-                    Subject = subject,
-                    Body = body,
-                    CreatedOnUtc = DateTime.UtcNow,
-                    EmailAccountId = emailAccount.Id
-                });
+                _workflowMessageService.SendContactVendorMessage(vendor, _workContext.WorkingLanguage.Id,
+                    model.Email.Trim(), model.FullName, subject, body);
 
                 model.SuccessfullySent = true;
                 model.Result = _localizationService.GetResource("ContactVendor.YourEnquiryHasBeenSent");
@@ -437,45 +281,35 @@ namespace Nop.Web.Controllers
         }
 
         //sitemap page
-        [NopHttpsRequirement(SslRequirement.No)]
-        public virtual ActionResult Sitemap()
+        [HttpsRequirement(SslRequirement.No)]
+        public virtual IActionResult Sitemap(SitemapPageModel pageModel)
         {
             if (!_commonSettings.SitemapEnabled)
                 return RedirectToRoute("HomePage");
 
-            var model = _commonModelFactory.PrepareSitemapModel();
+            var model = _commonModelFactory.PrepareSitemapModel(pageModel);
             return View(model);
         }
 
         //SEO sitemap page
-        [NopHttpsRequirement(SslRequirement.No)]
+        [HttpsRequirement(SslRequirement.No)]
         //available even when a store is closed
-        [StoreClosed(true)]
-        public virtual ActionResult SitemapXml()
+        [CheckAccessClosedStore(true)]
+        public virtual IActionResult SitemapXml(int? id)
         {
             if (!_commonSettings.SitemapEnabled)
                 return RedirectToRoute("HomePage");
-            
-            var siteMap = _commonModelFactory.PrepareSitemapXml(this.Url);
+
+            var siteMap = _commonModelFactory.PrepareSitemapXml(id);
             return Content(siteMap, "text/xml");
         }
 
-        //store theme
-        [ChildActionOnly]
-        public virtual ActionResult StoreThemeSelector()
-        {
-            if (!_storeInformationSettings.AllowCustomerToSelectTheme)
-                return Content("");
-
-            var model = _commonModelFactory.PrepareStoreThemeSelectorModel();
-            return PartialView(model);
-        }
-        public virtual ActionResult SetStoreTheme(string themeName, string returnUrl = "")
+        public virtual IActionResult SetStoreTheme(string themeName, string returnUrl = "")
         {
             _themeContext.WorkingThemeName = themeName;
 
             //home page
-            if (String.IsNullOrEmpty(returnUrl))
+            if (string.IsNullOrEmpty(returnUrl))
                 returnUrl = Url.RouteUrl("HomePage");
 
             //prevent open redirection attack
@@ -485,70 +319,34 @@ namespace Nop.Web.Controllers
             return Redirect(returnUrl);
         }
 
-        //favicon
-        [ChildActionOnly]
-        public virtual ActionResult Favicon()
-        {
-            var model = _commonModelFactory.PrepareFaviconModel();
-            if (String.IsNullOrEmpty(model.FaviconUrl))
-                return Content("");
-
-            return PartialView(model);
-        }
-
-        //EU Cookie law
-        [ChildActionOnly]
-        public virtual ActionResult EuCookieLaw()
-        {
-            if (!_storeInformationSettings.DisplayEuCookieLawWarning)
-                //disabled
-                return Content("");
-
-            //ignore search engines because some pages could be indexed with the EU cookie as description
-            if (_workContext.CurrentCustomer.IsSearchEngineAccount())
-                return Content("");
-
-            if (_workContext.CurrentCustomer.GetAttribute<bool>(SystemCustomerAttributeNames.EuCookieLawAccepted, _storeContext.CurrentStore.Id))
-                //already accepted
-                return Content("");
-
-            //ignore notification?
-            //right now it's used during logout so popup window is not displayed twice
-            if (TempData["nop.IgnoreEuCookieLawWarning"] != null && Convert.ToBoolean(TempData["nop.IgnoreEuCookieLawWarning"]))
-                return Content("");
-
-            return PartialView();
-        }
         [HttpPost]
         //available even when a store is closed
-        [StoreClosed(true)]
+        [CheckAccessClosedStore(true)]
         //available even when navigation is not allowed
-        [PublicStoreAllowNavigation(true)]
-        public virtual ActionResult EuCookieLawAccept()
+        [CheckAccessPublicStore(true)]
+        public virtual IActionResult EuCookieLawAccept()
         {
             if (!_storeInformationSettings.DisplayEuCookieLawWarning)
                 //disabled
                 return Json(new { stored = false });
 
             //save setting
-            _genericAttributeService.SaveAttribute(_workContext.CurrentCustomer, SystemCustomerAttributeNames.EuCookieLawAccepted, true, _storeContext.CurrentStore.Id);
+            _genericAttributeService.SaveAttribute(_workContext.CurrentCustomer, NopCustomerDefaults.EuCookieLawAcceptedAttribute, true, _storeContext.CurrentStore.Id);
             return Json(new { stored = true });
         }
 
         //robots.txt file
         //available even when a store is closed
-        [StoreClosed(true)]
+        [CheckAccessClosedStore(true)]
         //available even when navigation is not allowed
-        [PublicStoreAllowNavigation(true)]
-        public virtual ActionResult RobotsTextFile()
+        [CheckAccessPublicStore(true)]
+        public virtual IActionResult RobotsTextFile()
         {
-            var content = _commonModelFactory.PrepareRobotsTextFile();
-            Response.ContentType = MimeTypes.TextPlain;
-            Response.Write(content);
-            return null;
+            var robotsFileContent = _commonModelFactory.PrepareRobotsTextFile();
+            return Content(robotsFileContent, MimeTypes.TextPlain);
         }
 
-        public virtual ActionResult GenericUrl()
+        public virtual IActionResult GenericUrl()
         {
             //seems that no entity was found
             return InvokeHttp404();
@@ -556,10 +354,41 @@ namespace Nop.Web.Controllers
 
         //store is closed
         //available even when a store is closed
-        [StoreClosed(true)]
-        public virtual ActionResult StoreClosed()
+        [CheckAccessClosedStore(true)]
+        public virtual IActionResult StoreClosed()
         {
             return View();
+        }
+
+        //helper method to redirect users. Workaround for GenericPathRoute class where we're not allowed to do it
+        public virtual IActionResult InternalRedirect(string url, bool permanentRedirect)
+        {
+            //ensure it's invoked from our GenericPathRoute class
+            if (HttpContext.Items["nop.RedirectFromGenericPathRoute"] == null ||
+                !Convert.ToBoolean(HttpContext.Items["nop.RedirectFromGenericPathRoute"]))
+            {
+                url = Url.RouteUrl("HomePage");
+                permanentRedirect = false;
+            }
+
+            //home page
+            if (string.IsNullOrEmpty(url))
+            {
+                url = Url.RouteUrl("HomePage");
+                permanentRedirect = false;
+            }
+
+            //prevent open redirection attack
+            if (!Url.IsLocalUrl(url))
+            {
+                url = Url.RouteUrl("HomePage");
+                permanentRedirect = false;
+            }
+
+            if (permanentRedirect)
+                return RedirectPermanent(url);
+
+            return Redirect(url);
         }
 
         #endregion
